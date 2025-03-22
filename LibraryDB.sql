@@ -84,6 +84,7 @@ CREATE TABLE Fines (
     FOREIGN KEY (loan_id) REFERENCES Loans(loan_id) ON DELETE CASCADE
 );
 
+-- creating trigger to show books in library from only respected time period
 DELIMITER //
 CREATE TRIGGER check_publication_year
 BEFORE INSERT ON Books
@@ -97,7 +98,7 @@ END;
 //
 DELIMITER ;
 
-Trigger to Prevent Negative Copies Available
+-- Trigger to Prevent Negative Copies Available
 DELIMITER //
 CREATE TRIGGER prevent_negative_copies
 BEFORE UPDATE ON Books
@@ -139,6 +140,8 @@ INSERT INTO Librarians (name, email, phone) VALUES
 
 INSERT INTO Loans (book_id, member_id, loan_date, due_date, librarian_id) 
 VALUES (1, 1, CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 14 DAY), 1);
+
+-- FROM NOW THIS ALL VARIOUS CHECK FUNCTION WHICH WILL BE USEFULL IN OUR DATABASE AT VARIOUS TIMES
 
 -- Reduce copies available
 UPDATE Books 
